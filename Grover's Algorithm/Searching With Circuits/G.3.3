@@ -1,0 +1,22 @@
+@qml.qnode(dev)
+def grover_circuit(combo):
+    """Apply the MultiControlledX Grover operator and return probabilities on
+    query register.
+
+    Args:
+        combo (list[int]): A list of bits representing the secret combination.
+
+    Returns:
+        array[float]: Measurement outcome probabilities.
+    """
+    ##################
+    # YOUR CODE HERE #
+    ##################
+    # PREPARE QUERY AND AUXILIARY SYSTEM
+    qml.broadcast(qml.Hadamard,wires=query_register,pattern='single')
+    qml.PauliX(wires=aux)
+    qml.Hadamard(wires=aux)
+    oracle(combo)
+    diffusion()
+    # APPLY GROVER ITERATION
+    return qml.probs(wires=query_register)
