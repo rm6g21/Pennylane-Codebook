@@ -1,0 +1,21 @@
+def hadamard_transform(my_wires):
+    """Apply the Hadamard transform on a given set of wires.
+
+    Args:
+        my_wires (list[int]): A list of wires on which the Hadamard transform will act.
+    """
+    for wire in my_wires:
+        qml.Hadamard(wires=wire)
+
+
+def diffusion():
+    """Implement the diffusion operator using the Hadamard transform and
+    multi-controlled X."""
+
+    ##################
+    # YOUR CODE HERE #
+    ##################
+    
+    hadamard_transform(query_register)
+    qml.MultiControlledX(control_wires=query_register,wires=aux,control_values='0'*len(query_register))
+    hadamard_transform(query_register)
