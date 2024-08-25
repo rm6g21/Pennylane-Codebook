@@ -1,0 +1,33 @@
+def decode(codeword):
+    """Executes Bob's decoding procedure.
+
+    Args:
+        codeword (list(int)): The message Bob receives (a 3-bit string). 
+
+    Returns:
+        (int): A 0 or 1 — Bob's guess at what Alice's bit was.
+    """
+    ##################
+    # YOUR CODE HERE #
+    ##################
+
+    avg = np.mean(codeword)
+    if avg<0.5:
+        return 0
+    else:
+        return 1
+
+def success(b, codeword):
+    """Determines if Bob's decoding procedure is successful.
+
+    Args:
+        b (int): Alice's bit she sent to Bob. Can be 0 or 1. 
+        codeword (list(int)): The message Bob receives (a 3-bit string). 
+         
+    Returns: 
+        (bool): True/False if Bob decodes correctly/incorrectly.
+    """
+    ##################
+    # YOUR CODE HERE #
+    ##################
+    return b == decode(codeword)
