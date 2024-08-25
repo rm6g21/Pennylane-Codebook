@@ -1,0 +1,33 @@
+def encode(b):
+    """Returns three copes of Alice's bit b.
+    
+    Args:
+        b (int): Alice's bit she wants to send to Bob. Can be 0 or 1. 
+         
+    Returns: 
+        list(int): [b, b, b]
+    """
+    return [b, b, b]
+
+def noisy_channel(b, p):
+    """Returns a three-bit codeword message that Bob receives through a noisy channel.
+    
+    Args:
+        b (int): Alice's bit she wants to send to Bob. Can be 0 or 1. 
+        p (float): The probability that a bit is flipped. 
+         
+    Returns: 
+        list(int): The three-bit codeword that Bob receives. It might be different
+        than what Alice intended to send!
+    """
+    alice_sends = encode(b) # Alice sends this to Bob
+    ##################
+    # YOUR CODE HERE #
+    ##################
+    new_list = []
+    for bit in alice_sends:
+        prob = np.random.uniform(0,1)
+        if prob < p:
+            bit = 1 - bit
+        new_list.append(bit)
+    return new_list
