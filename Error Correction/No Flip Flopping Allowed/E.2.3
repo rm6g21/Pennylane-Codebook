@@ -1,0 +1,16 @@
+def largest_p():
+    # Range of bit-flip error probability
+    probability_range = np.arange(0.0, 0.5, 0.01)
+    # Initialize the array of function values
+    expvals = []
+    # Calculate function values for the circuit and append them to the list
+    for prob in probability_range:
+        expvals.append(bitflip_code_expval(prob))
+
+    # Find out what the largest p is for which the expectation value of the message stays above 0.9
+    ##################
+    # YOUR CODE HERE #
+    ##################
+    new_probs = [probability_range[i] for i in range(len(expvals)) if expvals[i]>0.9]
+    result = max(new_probs)
+    return result
