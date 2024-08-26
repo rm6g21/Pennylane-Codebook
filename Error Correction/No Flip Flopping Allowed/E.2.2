@@ -1,0 +1,36 @@
+
+@qml.qnode(dev)
+def phaseflip_code_expval(p):
+    """A circuit that uses two auxiliary qubits to encode the message of the first qubit, puts them through a simple noisy channel with a chance of a bit-flip error occurring, then decodes it and measures the expectation value of the original message.
+    
+    Args:
+        p (float): Probability of one bit-flip error occurring in the noisy channel for each wire.
+
+    Returns: 
+        (float): Expectation value of the message qubit.
+    """
+    # Encode the message on wire 0 into a logical qubit, and transform it into the Hadamard basis
+    ##################
+    # YOUR CODE HERE #
+    ##################
+    qml.CNOT([0,1])
+    qml.CNOT([0,2])
+    qml.broadcast(qml.Hadamard,wires=[0,1,2],pattern='single')
+    
+    # Transform the logical qubit into the Hadamard basis, put all wires through a noisy channel where each wire has a probability p that a phase-flip error will occur, then transform the result back into the computational basis.
+    qml.PhaseFlip(p, wires=0)
+    qml.PhaseFlip(p, wires=1)
+    qml.PhaseFlip(p, wires=2)
+    
+    # Decode the message after the noisy channel and transform it back into the computational basis
+    ##################
+    # YOUR CODE HERE #
+    ##################
+    qml.broadcast(qml.Hadamard,wires=[0,1,2],pattern='single')
+    qml.CNOT([0,1])
+    qml.CNOT([0,2])
+    qml.Toffoli([1,2,0])
+    
+    
+    # Measure the expectation value of the message
+    return qml.expval(qml.PauliZ([0]))
