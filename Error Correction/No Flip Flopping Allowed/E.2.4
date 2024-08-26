@@ -1,0 +1,34 @@
+n = 3
+dev = qml.device("default.mixed", wires=3)
+
+@qml.qnode(dev)
+def multi_bitflip_code_expval(p, n):
+    """A circuit that uses two auxiliary qubits to encode the message of the first qubit, puts them through a noisy channel with three opportunities for a bit-flip error occuring on each of the wires, then decodes it and measures the expectation value of the original message.
+    
+    Args:
+        p (float): Probability of one bit-flip error occuring in the noisy channel for each wire.
+
+    Returns: 
+        (float): Expectation value of the message qubit.
+    """
+    # Using two auxiliary qubits on wires 1 and 2, encode the message on wire 0 into a logical qubit
+    qml.CNOT(wires=[0,1])
+    qml.CNOT(wires=[0,2])
+    
+    # Put all wires through a noisy channel, where each wire has a probability p that a bit-flip error will occur
+    # This probability occurs three times in a row
+    ##################
+    # YOUR CODE HERE #
+    ##################
+    for i in range(n):
+        qml.BitFlip(p,wires=0)
+        qml.BitFlip(p,wires=1)
+        qml.BitFlip(p,wires=2)
+    
+    # Decode the message after the noisy channel
+    qml.CNOT(wires=[0,1])
+    qml.CNOT(wires=[0,2])
+    qml.Toffoli(wires=[1,2,0])
+    
+    # Measure the expectation value of the message
+    return qml.expval(qml.PauliZ([0]))
