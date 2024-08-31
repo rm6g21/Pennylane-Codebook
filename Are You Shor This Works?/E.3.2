@@ -1,0 +1,61 @@
+
+@qml.qnode(dev)
+def shor(state, error_type, wires):
+    """A quantum circuit that implements Shor's 9-qubit code
+    
+    Args:
+        state (tensor): a numpy array representing a 1-qubit state: alpha |0> + beta |1>
+                        This is used to initialize the 0th wire with qml.QubitStateVector
+        error_type (str): for example, XX, YY, XZ, YZ.
+        wires (list(int)): the wires the error acts on.
+    
+    Returns:
+        (tuple(tensor, tensor)): the separate probability distributions over the 0th wire (|psi>)
+        and all 8 ancillary qubits in that order.
+    """
+
+    
+    #initialize measurement qubit
+    qml.QubitStateVector(state,wires=[0])
+
+    #outer part 1
+    qml.CNOT(wires=[0,3])
+    qml.CNOT(wires=[0,6])
+
+    #inner part 1
+    qml.broadcast(qml.Hadamard,wires=[0,3,6],pattern='single')
+    
+    qml.CNOT(wires=[0,1])
+    qml.CNOT([3,4])
+    qml.CNOT([6,7])
+
+    qml.CNOT([0,2])
+    qml.CNOT([3,5])
+    qml.CNOT([6,8])
+
+    
+    # apply the error
+    for err in error(error_type=error_type, wires=wires):
+        err
+
+    #inner part 2
+    qml.CNOT(wires=[0,1])
+    qml.CNOT([3,4])
+    qml.CNOT([6,7])
+
+    qml.CNOT([0,2])
+    qml.CNOT([3,5])
+    qml.CNOT([6,8])
+
+    qml.Toffoli(wires=[2,1,0])
+    qml.Toffoli(wires=[5,4,3])
+    qml.Toffoli(wires=[8,7,6])
+
+    qml.broadcast(qml.Hadamard,wires=[0,3,6],pattern='single')
+
+    #outer part 2
+    qml.CNOT([0,3])
+    qml.CNOT([0,6])
+    qml.Toffoli(wires=[6,3,0])
+
+    return qml.probs(wires=0), qml.probs(wires=range(1, 9))
