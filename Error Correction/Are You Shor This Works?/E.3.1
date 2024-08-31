@@ -1,0 +1,8 @@
+# Create a Z error on qubit 4
+z_error_4 = error(error_type="Z",wires=[4])
+
+# Create a YX error on qubits 8 and 0
+yx_error_80 = error(error_type="YX",wires=[8,0])
+
+# Create a XXZZYY error on qubits 1, 2, 3, 4, 5, and 0.
+xxzzyy_error_123450 = error(error_type="XXYYZZ",wires=[1,2,3,4,5,0])
