@@ -1,0 +1,39 @@
+def decoded(state, error_type, wires):
+    """Tells us whether the state was decoded by Shor's code
+    
+    Args:
+        state (tensor): a numpy array representing a 1-qubit state: alpha |0> + beta |1>
+        error_type (str): for example, XX, YY, XZ, YZ.
+        wires (list(int)): the wires the error acts on.
+    
+    Returns:
+        (bool): True if state is decoded successfully, False if not. 
+    """
+    ##################
+    # YOUR CODE HERE #
+    ##################
+    prob0 = shor(state, error_type, wires)[0]
+
+    alpha_squared = np.abs(state[0])**2
+    beta_squared = np.abs(state[1])**2
+
+    state_probs = np.array([alpha_squared, beta_squared])
+
+    if np.all(np.isclose(state_probs,prob0)):
+
+        return True
+    else:
+        return False
+
+state = random_state()
+
+single_qubit_errors = [["X", [i]] for i in range(9)]
+single_qubit_errors += [["Y", [i]] for i in range(9)]
+single_qubit_errors += [["Z", [i]] for i in range(9)]
+
+decoded_list = []
+
+for err in single_qubit_errors:
+    decoded_list.append(decoded(state, *err))
+
+print(decoded_list)
