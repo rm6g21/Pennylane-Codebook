@@ -1,0 +1,16 @@
+def find_the_one(syndrome):
+    """Finds the entry in the error syndrome that is equal to 1.
+
+    Args:
+        syndrome (tensor): The second output of the shor function — qml.probs(wires=range(1, 9))
+
+    Returns:
+        (int): the index of the syndrome vector that is equal to 1. For example, 
+        if syndrome = [0, 0, 1, 0], then this function would return 2.
+    """
+    ##################
+    # YOUR CODE HERE #
+    ##################
+    for count, entries in enumerate(syndrome):
+        if np.isclose(entries,1.0):
+            return count
