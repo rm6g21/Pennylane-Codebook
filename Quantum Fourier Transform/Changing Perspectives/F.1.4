@@ -1,0 +1,38 @@
+def fft_multiplication(poly_a, poly_b):
+    """Returns the result of multiplying two polynomials
+    
+    Args:
+        poly_a (array[complex]): 1-D array of coefficients 
+        poly_b (array[complex]): 1-D array of coefficients 
+
+    Returns: 
+        array[complex]: complex coefficients of the product
+            of the polynomials
+    """
+    ##################
+    # YOUR CODE HERE #
+    ################## 
+
+    # Calculate the number of values required
+    n = len(poly_a) + len(poly_b) - 1
+
+    # Figure out the nearest power of 2
+    n = nearest_power_of_2(n)
+
+    # Pad zeros to the polynomial
+    new_A = np.zeros(n)
+    new_B = new_A.copy()
+    new_A[:len(poly_a)] = poly_a
+    new_B[:len(poly_b)] = poly_b
+
+    # Convert the polynomials to value representation
+    new_A = coefficients_to_values(new_A)
+    new_B = coefficients_to_values(new_B)
+
+    # Multiply
+    fourier = new_A * new_B
+
+    # Convert back to coefficient representation
+    inverse = values_to_coefficients(fourier)
+    
+    return inverse
