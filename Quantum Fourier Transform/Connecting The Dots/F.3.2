@@ -1,0 +1,25 @@
+dev = qml.device('default.qubit', wires=4)
+
+            
+def swap_bits(n_qubits):
+    """A circuit that reverses the order of qubits, i.e.,
+    performs a SWAP such that [q1, q2, ..., qn] -> [qn, ... q2, q1].
+    
+    Args:
+        n_qubits (int): An integer value identifying the number of qubits.
+    """
+    ##################
+    # YOUR CODE HERE #
+    ##################
+
+    for i in range(int(n_qubits/2)):
+        qml.SWAP([i,n_qubits-1-i])
+    pass
+@qml.qnode(dev) 
+def qft_node(basis_id, n_qubits):
+    # Prepare the basis state |basis_id>
+    bits = [int(x) for x in np.binary_repr(basis_id, width=n_qubits)]
+    qml.BasisStatePreparation(bits, wires=range(n_qubits))
+    # qft_rotations(n_qubits)
+    swap_bits(n_qubits)
+    return qml.state()
