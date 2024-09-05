@@ -1,0 +1,36 @@
+dev = qml.device('default.qubit', wires=4)
+
+def qft_recursive_rotations(n_qubits, wire=0):
+    """A circuit that performs the QFT rotations on the specified qubits
+        recursively.
+        
+    Args:
+        n_qubits (int): An integer value identifying the number of qubits.
+        wire (int): An integer identifying the wire 
+                    (or the qubit) to apply rotations on.
+    """
+
+    ##################
+    # YOUR CODE HERE #
+    ################## 
+
+    if wire==n_qubits-1:
+        qml.Hadamard(wires=wire)
+        return
+
+    else:
+        qml.Hadamard(wires=wire)
+        for j in range(wire+1,n_qubits):
+            qml.ControlledPhaseShift(np.pi/(2**(j-wire)),wires=[j,wire])
+        qft_recursive_rotations(n_qubits,wire+1)
+            
+    
+
+@qml.qnode(dev) 
+def qft_node(basis_id, n_qubits):
+    # Prepare the basis state |basis_id>
+    bits = [int(x) for x in np.binary_repr(basis_id, width=n_qubits)]
+    qml.BasisStatePreparation(bits, wires=range(n_qubits))
+    qft_recursive_rotations(n_qubits)
+    swap_bits(n_qubits)
+    return qml.state()
