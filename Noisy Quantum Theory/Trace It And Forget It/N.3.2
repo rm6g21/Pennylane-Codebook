@@ -1,0 +1,12 @@
+def create_entangled(alpha):
+
+    """ Subcircuit that creates the entangled state
+    Args:
+        - alpha (float): angle parameterizing the subcircuit.
+    """
+   
+    qml.RY(alpha,wires=0)
+    qml.CNOT(wires=[0,1])
+
+   
+    # Write your circuit here
