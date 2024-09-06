@@ -1,0 +1,18 @@
+def composite_density_matrix(rho, sigma):
+    """Build composite density matrix from two states.
+    
+    Args:
+        rho: (np.array(array[complex]): The density matrix of the first input state
+        sigma: (np.array(array[complex]): The density matrix of the second input state
+        
+    Returns:
+        (np.array([array[complex]])): The density matrix for the composite system.
+    """
+
+    ################
+    #YOUR CODE HERE#
+    ################
+
+    # Build the density matrix and return it
+    
+    return np.kron(rho,sigma)
