@@ -1,0 +1,17 @@
+estimation_wires = [0, 1, 2]
+target_wires = [3]
+
+def apply_controlled_powers_of_U(unitary):
+    """A quantum function that applies the sequence of powers of U^2^k to
+    the estimation wires.
+    
+    Args: 
+        unitary (array [complex]): A unitary matrix
+    """
+
+    ##################
+    # YOUR CODE HERE #
+    ##################  
+    for i in (estimation_wires):
+        k=len(estimation_wires)-1-i
+        qml.ControlledQubitUnitary(U_power_2k(unitary,k),i,target_wires)
