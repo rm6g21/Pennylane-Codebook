@@ -1,0 +1,22 @@
+dev = qml.device('default.qubit',wires=2) # Create your device
+
+@qml.qnode(dev)
+def reduced_entangled(alpha):
+
+    """
+    Function that prepares an entangled state and calculates the reduced density matrix 
+    on the first wire.
+    Args:
+        - alpha (float): Angle parametrizing the entangled state
+    Returns:
+        (np.array(complex)): Reduce density matrix on the first wire
+    """
+    
+    # Prepare the state using create_entangled
+    create_entangled(alpha)
+    
+    return qml.density_matrix(0) # Return the density matrix on wire = 0
+
+alpha = np.pi/3
+
+print("For alpha = pi/3, the reduced density matrix is {}".format(reduced_entangled(alpha)))
