@@ -1,0 +1,42 @@
+dev = qml.device("default.qubit", wires=2)
+        
+@qml.qnode(dev)
+def phase_kickback_X(eigenvector):
+    """ Given an eigenvector of X, 
+    apply the phase kickback circuit to observe 
+    the probabilities on the control wire
+    
+    Args: 
+        eigenvector(String): A string "plus" or "minus" depicting 
+        the eigenvector of X
+    
+    Returns:
+        array[int]: Measurement outcome on the first qubit using qml.probs()
+    """
+    # Prepare |ψ>
+    ##################
+    # YOUR CODE HERE #
+    ################## 
+    if eigenvector == "plus":
+        qml.Hadamard(1)
+    else:
+        qml.PauliX(1)
+        qml.Hadamard(1)
+    
+    # Phase kickback
+    ##################
+    # YOUR CODE HERE #
+    ################## 
+    qml.Hadamard(0)
+    qml.CNOT([0,1])
+    qml.Hadamard(0)
+    
+ 
+    return qml.probs(wires=[0])   
+
+print(phase_kickback_X("plus"))
+print(phase_kickback_X("minus"))
+
+# MODIFY EIGENVALUES BELOW 
+eigenvalue_of_X_plus = 1
+eigenvalue_of_X_minus = -1
