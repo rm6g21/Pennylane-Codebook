@@ -1,0 +1,21 @@
+def is_equivalent(a, b, m):
+    """Return a boolean indicating whether the equivalence is satisfied.
+
+    Args:
+        a (int): First number to check the equivalence.
+        b (int): Second number to check the equivalence.
+        m (int): Modulus of the equivalence.
+
+    Returns:
+        bool: True if a = b (m), False otherwise.
+    """
+
+    ##################
+    # YOUR CODE HERE #
+    ##################
+
+    return (a-b)/m % 1 ==0
+
+
+print(f"13 = 8 (3) is {is_equivalent(13, 8, 3)}")
+print(f"13 = 7 (6) is {is_equivalent(13, 7, 6)}")
