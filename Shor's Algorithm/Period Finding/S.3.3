@@ -1,0 +1,30 @@
+def U():
+    qml.SWAP(wires=[2, 3])
+    qml.SWAP(wires=[1, 2])
+    qml.SWAP(wires=[0, 1])
+    for i in range(4):
+        qml.PauliX(wires=i)
+
+
+dev = qml.device("default.qubit", wires=4)
+
+
+@qml.qnode(dev)
+def circuit():
+    """Apply U four times to |0001> to verify this is the period.
+
+    Returns:
+        array[float]: probabilities of each basis state.
+    """
+
+    ##################
+    # YOUR CODE HERE #
+    ##################
+    qml.PauliX(3)
+    for i in range(4):
+        U()
+
+    return qml.probs(wires=range(4))
+
+
+print(circuit())
