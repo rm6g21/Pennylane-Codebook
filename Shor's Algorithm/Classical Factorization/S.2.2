@@ -1,0 +1,21 @@
+def factorization(N):
+    """Return the factors of N.
+
+    Args:
+        N (int): number we want to factor.
+
+    Returns:
+        array[int]: [p,q] factors of N.
+    """
+    ##################
+    # YOUR CODE HERE #
+    ##################
+    x = nontrivial_square_root(N)
+    factors = np.zeros(2)
+    factors[0] = np.gcd(x-1,N)
+    factors[1] = np.gcd(x+1,N)
+    return factors
+
+N = 391
+p, q = factorization(N)
+print(f"{N} = {p} x {q}")
