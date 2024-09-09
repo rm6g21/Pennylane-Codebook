@@ -1,0 +1,35 @@
+def shor(N):
+    """Return the factorization of a given integer.
+
+    Args:
+       N (int): integer we want to factorize.
+
+    Returns:
+        array[int]: [p,q], the prime factors of N.
+    """
+
+    ##################
+    # YOUR CODE HERE #
+    ##################
+    running=True
+    while running==True:
+        a=int(np.random.randint(2,N-1))
+    
+        if is_coprime(a,N)==False:
+            return [np.gcd(a,N),N/np.gcd(a,N)]
+            running=False
+        else:
+            U = get_matrix_a_mod_N(a,N)
+            r= get_period(U,N)
+            
+            if is_odd(r)==True:
+                
+                x = int(a**(r/2) %N)
+                if is_not_one(x,N):
+                    return [np.gcd(x-1,N),np.gcd(x+1,N)]
+                    running=False
+                    
+                
+            
+
+print(shor(21))
