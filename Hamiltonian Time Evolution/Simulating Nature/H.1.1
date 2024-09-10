@@ -1,0 +1,30 @@
+input = [0,1,0,1,0] # MODIFY EXAMPLE
+output = secret_box(input)
+print("The result of applying the secret box to ", input, "is ", output)
+# We will secretly apply the function and return the result!
+
+def deterministic_box(bits):
+    """Guess the secret deterministic rule.
+    
+    Args:
+        bits (list[int]): A list of bits representing an initial condition.
+         
+    Returns: 
+        list[int]: The output bits measured after deterministic evolution.
+    """
+    ##################
+    # YOUR CODE HERE #
+    ##################
+
+    
+
+    new_bits = bits.copy()
+
+    for i in range(len(bits)-1):
+        new_bits[i] = bits[i+1]
+
+    new_bits[-1] = bits[0]
+      
+        
+
+    return new_bits
