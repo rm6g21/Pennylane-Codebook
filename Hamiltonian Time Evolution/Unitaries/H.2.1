@@ -1,0 +1,18 @@
+def unitary_check(operator):
+    """Checks if a complex-valued matrix is unitary.
+    
+    Args:
+        operator (array[complex]): A square complex-valued array.
+        
+    Returns: 
+        bool: Whether the matrix is unitary or not.
+    """
+    ##################
+    # YOUR CODE HERE #
+    ##################
+
+    adjoint = np.transpose(np.conjugate(operator))
+    if np.allclose(adjoint@operator,np.identity(operator.shape[0])):
+        return True 
+    else:
+        return False
