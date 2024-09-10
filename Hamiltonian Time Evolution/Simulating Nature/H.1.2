@@ -1,0 +1,26 @@
+input = 1 # MODIFY EXAMPLE
+output = secret_box(input)
+trials = 10000 # INCREASE TRIALS TO IMPROVE APPROXIMATION
+values = []
+for i in range(trials):
+    output = secret_box(input)
+    values.append(output)
+    #print("On input", input, "the approximate probability distribution is", output)
+print(np.mean(values))
+# We will secretly apply the function and return the result!
+
+def random_box(bit):
+    """Guess the secret random rule.
+    
+    Args:
+        bit (int): A bit representing the initial condition.
+         
+    Returns: 
+        int: The output bit measured after random evolution.
+    """
+    ##################
+    # YOUR CODE HERE #
+    ##################
+
+    bit = np.random.choice(2)
+    return bit # MODIFY THIS
