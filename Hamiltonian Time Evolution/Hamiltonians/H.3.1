@@ -18,7 +18,7 @@ def evolve_magnetic(B, time):
     # YOUR CODE HERE #
     ##################
 
-    qml.evolve(qml.PauliZ(0),-alpha*time)
+    qml.RZ(-2*alpha*time,0)
 
     return qml.state()
 
