@@ -1,0 +1,22 @@
+n_bits = 5
+dev = qml.device("default.qubit", wires=n_bits)
+    
+##################
+# YOUR CODE HERE #
+##################
+coeffs = [1,1,1,1] # MODIFY THIS
+obs = [qml.PauliZ(i)@qml.PauliZ(i+1) for i in range(4)] # MODIFY THIS
+H = qml.dot(coeffs, obs)
+
+@qml.qnode(dev)
+def energy(init):
+    """Circuit for measuring expectation value of Hamiltonian in a given state.
+    
+    Args:
+        init (numpy.array(int)): An initial computational basis state, specified by five bits.
+
+    Returns: 
+        float: Expectation value of the Hamiltonian H.
+    """
+    qml.BasisState(init, wires=range(n_bits))
+    return qml.expval(H)
