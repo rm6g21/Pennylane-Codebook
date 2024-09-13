@@ -1,0 +1,24 @@
+n_bits = 2
+dev = qml.device("default.qubit", wires=n_bits)
+
+@qml.qnode(dev)
+def ZZ_evolve(alpha, time, init):
+    """Circuit for evolving two electrons with a ZZ interaction
+    using qml.evolve
+    
+    Args:
+        alpha (float): The strength of the interaction.
+        time (float): The time we evolve the electron wave function for.
+        init (numpy.array(int)): An initial state specified by two bits [x, y]. Prepare the
+            system in this state prior to applying the time evolution circuit.
+
+    Returns: 
+        np.tensor: Output state.
+    """
+    ##################
+    # YOUR CODE HERE #
+    ##################
+    qml.BasisState(init,wires=range(n_bits))
+    Z_cross_Z = qml.PauliZ(0) @ qml.PauliZ(1)
+    qml.evolve(Z_cross_Z,alpha*time)
+    return qml.state()
