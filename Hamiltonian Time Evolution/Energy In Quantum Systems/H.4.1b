@@ -1,0 +1,24 @@
+n_bits = 2
+dev = qml.device("default.qubit", wires=n_bits)
+
+@qml.qnode(dev)
+def ising_circuit(alpha, time, init):
+    """Circuit for evolving two electrons with a ZZ interaction
+    using an Ising gate
+    
+    Args:
+        alpha (float): The strength of the interaction.
+        time (float): The time we evolve the electron wavefunction for.
+        init (numpy.array(int)): An initial state specified by two bits [x, y]. Prepare the
+            system in this state prior to applying the time evolution circuit.
+
+    Returns: 
+        np.tensor: Output state.
+    """
+    ##################
+    # YOUR CODE HERE #
+    ##################
+
+    qml.BasisState(init,wires=range(n_bits))
+    qml.IsingZZ(2*alpha*time,wires=range(n_bits))
+    return qml.state()
