@@ -1,0 +1,5 @@
+my_guess1 = np.array([0,1,0,0,1]) # MODIFY THIS
+my_guess2 = np.array([1,0,1,1,0]) # MODIFY THIS
+
+print("The expected energy for", my_guess1, "is", energy(my_guess1), ".")
+print("The expected energy for", my_guess2, "is", energy(my_guess2), ".")
