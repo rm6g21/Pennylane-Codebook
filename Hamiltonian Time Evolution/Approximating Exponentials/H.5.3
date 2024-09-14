@@ -1,0 +1,21 @@
+n_bits=2
+dev = qml.device("default.qubit", wires=range(n_bits))
+
+def ham_close_spins(alpha, J):
+    """Creates the Hamiltonian for two close spins.
+
+    Args:
+        alpha (float): The strength of the field, assumed to point in the z direction.
+        J (list[float]): A vector of couplings [J_X, J_Y, J_Z].
+
+    Returns:
+        qml.Hamiltonian: The Hamiltonian of the system.
+    """
+
+    ##################
+    # YOUR CODE HERE #
+    ##################
+    functions = [qml.PauliX,qml.PauliY,qml.PauliZ]
+    coeffs = [-alpha]+J # MODIFY THIS
+    obs = [qml.PauliZ(0)+qml.PauliZ(1)]+[func(0)@func(1) for func in functions] # MODIFY THIS
+    return qml.dot(coeffs,obs) # Return the Hamiltonian using qml.dot
